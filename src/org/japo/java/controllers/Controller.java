@@ -140,7 +140,7 @@ public class Controller {
         view.cbxRep.setSelected(model.isRep());
     }
 
-    // Vista (Subjetivo) > Modelo
+    // Vista > Modelo
     private void sincronizarVistaModelo(View view, Model model) {
         model.setExp(view.txfExp.getText());
         model.setNom(view.txfNom.getText());
@@ -168,7 +168,7 @@ public class Controller {
 
     // Validar Controles Subjetivos
     private boolean validarControlesSubjetivos(View view) {
-        // Validar Controles
+        // Validación Controles Subjetivos
         boolean expOK = UtilesValidacion.validarCampoTexto(view.txfExp, Model.ER_EXP, "?");
         boolean nomOK = UtilesValidacion.validarCampoTexto(view.txfNom, Model.ER_NOM, "?");
         boolean apeOK = UtilesValidacion.validarCampoTexto(view.txfApe, Model.ER_APE, "?");
@@ -187,7 +187,7 @@ public class Controller {
         UtilesSwing.establecerLnF(prp.getProperty(View.PRP_LOOK_AND_FEEL, UtilesSwing.WINDOWS));
 
         // Activa Singleton
-        if (!UtilesApp.activarInstancia(prp.getProperty(View.PRP_PUERTO_BLOQUEO, UtilesApp.PUERTO_BLOQUEO))) {
+        if (!UtilesApp.activarInstancia(prp.getProperty(View.PRP_PUERTO_BLOQUEO, UtilesApp.DEF_PUERTO_BLOQUEO))) {
             UtilesSwing.terminarPrograma(view);
         }
 

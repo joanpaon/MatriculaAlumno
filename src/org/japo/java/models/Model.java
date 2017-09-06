@@ -27,7 +27,7 @@ public class Model implements Serializable {
 
     // Ciclos Formativos
     public static final String[] CICLOS = {
-        "ESI", "ASI", "DAI", "SMR", "DAM", "DAW", "ASIR"
+        "ESI", "ASI", "DAI", "SMR", "ASIR", "DAW", "DAM"
     };
 
     // Número de items
@@ -45,8 +45,8 @@ public class Model implements Serializable {
 
     // Expresiones regulares
     public static final String ER_EXP = "\\d{5,8}";
-    public static final String ER_NOM = "[\\wáéíóúüÁÉÍÓÚÜñÑ\\-\\. ]{2,20}";
-    public static final String ER_APE = "[\\wáéíóúüÁÉÍÓÚÜñÑ\\-\\. ]{2,20}";
+    public static final String ER_NOM = "[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\\-\\. ]{2,20}";
+    public static final String ER_APE = "[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\\-\\. ]{2,20}";
     public static final String ER_CIC = "ESI|ASI|DAI|SMR|DAM|DAW|ASIR";
     public static final String ER_CUR = "[123]";
     public static final String ER_TUR = "[MVND]";

@@ -17,6 +17,7 @@ package org.japo.java.views;
 
 import java.awt.Color;
 import java.util.Properties;
+import javax.swing.DefaultComboBoxModel;
 import org.japo.java.controllers.Controller;
 import org.japo.java.libraries.UtilesApp;
 import org.japo.java.libraries.UtilesValidacion;
@@ -69,8 +70,8 @@ public class View extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bgpCur = new javax.swing.ButtonGroup();
-        bgpTur = new javax.swing.ButtonGroup();
+        btgCurso = new javax.swing.ButtonGroup();
+        btgTurno = new javax.swing.ButtonGroup();
         pnlIdentificacion = new javax.swing.JPanel();
         lblExp = new javax.swing.JLabel();
         txfExp = new javax.swing.JTextField();
@@ -82,8 +83,8 @@ public class View extends javax.swing.JFrame {
         txfDNI = new javax.swing.JTextField();
         pnlMatricula = new javax.swing.JPanel();
         lblCic = new javax.swing.JLabel();
-        cbbCic = new javax.swing.JComboBox();
-        LblCur = new javax.swing.JLabel();
+        cbbCic = new javax.swing.JComboBox<>();
+        lblCur = new javax.swing.JLabel();
         rbtCur1 = new javax.swing.JRadioButton();
         rbtCur2 = new javax.swing.JRadioButton();
         rbtCur3 = new javax.swing.JRadioButton();
@@ -94,13 +95,12 @@ public class View extends javax.swing.JFrame {
         rbtTurD = new javax.swing.JRadioButton();
         lblRep = new javax.swing.JLabel();
         cbxRep = new javax.swing.JCheckBox();
-        pnlPersistencia = new javax.swing.JPanel();
+        pnlControles = new javax.swing.JPanel();
         btnImportar = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Matricula Centro Formativo");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setTitle("Matrícula Alumno");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -110,8 +110,7 @@ public class View extends javax.swing.JFrame {
 
         pnlIdentificacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
-        lblExp.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblExp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblExp.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblExp.setText("Expediente");
 
         txfExp.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -123,9 +122,13 @@ public class View extends javax.swing.JFrame {
                 txfExpFocusLost(evt);
             }
         });
+        txfExp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfExpActionPerformed(evt);
+            }
+        });
 
-        lblNom.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblNom.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblNom.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblNom.setText("Nombre");
 
         txfNom.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -137,9 +140,13 @@ public class View extends javax.swing.JFrame {
                 txfNomFocusLost(evt);
             }
         });
+        txfNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfNomActionPerformed(evt);
+            }
+        });
 
-        lblApe.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblApe.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblApe.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblApe.setText("Apellidos");
 
         txfApe.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -151,10 +158,14 @@ public class View extends javax.swing.JFrame {
                 txfApeFocusLost(evt);
             }
         });
+        txfApe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfApeActionPerformed(evt);
+            }
+        });
 
-        lblDNI.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblDNI.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblDNI.setText("Nif");
+        lblDNI.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblDNI.setText("DNI");
 
         txfDNI.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         txfDNI.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -165,6 +176,11 @@ public class View extends javax.swing.JFrame {
                 txfDNIFocusLost(evt);
             }
         });
+        txfDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfDNIActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlIdentificacionLayout = new javax.swing.GroupLayout(pnlIdentificacion);
         pnlIdentificacion.setLayout(pnlIdentificacionLayout);
@@ -173,100 +189,92 @@ public class View extends javax.swing.JFrame {
             .addGroup(pnlIdentificacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlIdentificacionLayout.createSequentialGroup()
-                        .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblExp))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfNom)
-                            .addComponent(txfExp)))
-                    .addGroup(pnlIdentificacionLayout.createSequentialGroup()
-                        .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblApe, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfApe)
-                            .addComponent(txfDNI))))
+                    .addComponent(lblExp)
+                    .addComponent(lblNom)
+                    .addComponent(lblApe)
+                    .addComponent(lblDNI))
+                .addGap(18, 18, 18)
+                .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfDNI)
+                    .addComponent(txfApe)
+                    .addComponent(txfNom)
+                    .addComponent(txfExp))
                 .addContainerGap())
         );
-
-        pnlIdentificacionLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblApe, lblDNI, lblExp, lblNom});
-
         pnlIdentificacionLayout.setVerticalGroup(
             pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIdentificacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblExp, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblExp)
                     .addComponent(txfExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNom, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNom)
                     .addComponent(txfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblApe, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblApe)
                     .addComponent(txfApe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlIdentificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDNI)
                     .addComponent(txfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlIdentificacionLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblApe, lblDNI, lblExp, lblNom, txfApe, txfDNI, txfExp, txfNom});
+        pnlIdentificacionLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblExp, txfExp});
 
         pnlMatricula.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Matrícula", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
-        lblCic.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lblCic.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblCic.setText("Ciclo");
 
-        cbbCic.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        cbbCic.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DAI", "ASI", "ESI", "SMR", "ASIR", "DAW", "DAM", "" }));
+        cbbCic.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        cbbCic.setModel(new DefaultComboBoxModel<String>(Model.CICLOS)
+        );
         cbbCic.setSelectedItem(Model.DEF_CIC);
 
-        LblCur.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        LblCur.setText("Curso");
+        lblCur.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblCur.setText("Curso");
 
-        bgpCur.add(rbtCur1);
-        rbtCur1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgCurso.add(rbtCur1);
+        rbtCur1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtCur1.setSelected(true);
         rbtCur1.setText("1");
 
-        bgpCur.add(rbtCur2);
-        rbtCur2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgCurso.add(rbtCur2);
+        rbtCur2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtCur2.setText("2");
 
-        bgpCur.add(rbtCur3);
-        rbtCur3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgCurso.add(rbtCur3);
+        rbtCur3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtCur3.setText("3");
 
-        lblTur.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lblTur.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblTur.setText("Turno");
 
-        bgpTur.add(rbtTurM);
-        rbtTurM.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgTurno.add(rbtTurM);
+        rbtTurM.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtTurM.setSelected(true);
         rbtTurM.setText("M");
 
-        bgpTur.add(rbtTurV);
-        rbtTurV.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgTurno.add(rbtTurV);
+        rbtTurV.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtTurV.setText("V");
 
-        bgpTur.add(rbtTurN);
-        rbtTurN.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgTurno.add(rbtTurN);
+        rbtTurN.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtTurN.setText("N");
 
-        bgpTur.add(rbtTurD);
-        rbtTurD.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btgTurno.add(rbtTurD);
+        rbtTurD.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         rbtTurD.setText("D");
 
-        lblRep.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lblRep.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblRep.setText("Repetidor");
 
-        cbxRep.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        cbxRep.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout pnlMatriculaLayout = new javax.swing.GroupLayout(pnlMatricula);
         pnlMatricula.setLayout(pnlMatriculaLayout);
@@ -274,42 +282,39 @@ public class View extends javax.swing.JFrame {
             pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMatriculaLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCur, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .addComponent(lblTur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMatriculaLayout.createSequentialGroup()
-                        .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCic, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LblCur, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbbCic, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(cbbCic, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMatriculaLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxRep)
                             .addGroup(pnlMatriculaLayout.createSequentialGroup()
-                                .addComponent(lblTur, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtCur1)
-                                    .addComponent(rbtTurM))
-                                .addGap(12, 12, 12)
-                                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(pnlMatriculaLayout.createSequentialGroup()
-                                        .addComponent(rbtTurV)
+                                        .addComponent(rbtTurM)
                                         .addGap(18, 18, 18)
+                                        .addComponent(rbtTurV))
+                                    .addGroup(pnlMatriculaLayout.createSequentialGroup()
+                                        .addComponent(rbtCur1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(rbtCur2)))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rbtCur3)
+                                    .addGroup(pnlMatriculaLayout.createSequentialGroup()
                                         .addComponent(rbtTurN)
                                         .addGap(18, 18, 18)
-                                        .addComponent(rbtTurD))
-                                    .addGroup(pnlMatriculaLayout.createSequentialGroup()
-                                        .addComponent(rbtCur2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rbtCur3))))
-                            .addGroup(pnlMatriculaLayout.createSequentialGroup()
-                                .addComponent(lblRep, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxRep)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(rbtTurD)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-
-        pnlMatriculaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {LblCur, lblCic, lblRep, lblTur});
 
         pnlMatriculaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rbtCur1, rbtCur2, rbtCur3, rbtTurD, rbtTurM, rbtTurN, rbtTurV});
 
@@ -318,33 +323,31 @@ public class View extends javax.swing.JFrame {
             .addGroup(pnlMatriculaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCic, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCic)
                     .addComponent(cbbCic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LblCur)
+                    .addComponent(lblCur)
                     .addComponent(rbtCur1)
                     .addComponent(rbtCur2)
                     .addComponent(rbtCur3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTur, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTur)
                     .addComponent(rbtTurM)
                     .addComponent(rbtTurV)
                     .addComponent(rbtTurN)
                     .addComponent(rbtTurD))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRep)
                     .addComponent(cbxRep))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        pnlMatriculaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {LblCur, cbbCic, lblCic, lblRep, lblTur, rbtCur1, rbtCur2, rbtCur3, rbtTurD, rbtTurM, rbtTurN, rbtTurV});
+        pnlControles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Almacenamiento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
-        pnlPersistencia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Persistencia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
-
-        btnImportar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnImportar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         btnImportar.setText("Importar");
         btnImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +355,7 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        btnExportar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnExportar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         btnExportar.setText("Exportar");
         btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,25 +363,22 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pnlPersistenciaLayout = new javax.swing.GroupLayout(pnlPersistencia);
-        pnlPersistencia.setLayout(pnlPersistenciaLayout);
-        pnlPersistenciaLayout.setHorizontalGroup(
-            pnlPersistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPersistenciaLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlControlesLayout = new javax.swing.GroupLayout(pnlControles);
+        pnlControles.setLayout(pnlControlesLayout);
+        pnlControlesLayout.setHorizontalGroup(
+            pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlControlesLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
-
-        pnlPersistenciaLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnExportar, btnImportar});
-
-        pnlPersistenciaLayout.setVerticalGroup(
-            pnlPersistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPersistenciaLayout.createSequentialGroup()
+        pnlControlesLayout.setVerticalGroup(
+            pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlControlesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPersistenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImportar)
                     .addComponent(btnExportar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -388,13 +388,13 @@ public class View extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlPersistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlIdentificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pnlControles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlIdentificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +404,7 @@ public class View extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlPersistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -412,6 +412,9 @@ public class View extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        control.procesarCierreVista(evt);
+    }//GEN-LAST:event_formWindowClosing
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
         control.procesarImportacion(evt);
@@ -420,6 +423,22 @@ public class View extends javax.swing.JFrame {
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         control.procesarExportacion(evt);
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void txfExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfExpActionPerformed
+        txfNom.requestFocus();
+    }//GEN-LAST:event_txfExpActionPerformed
+
+    private void txfNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNomActionPerformed
+        txfApe.requestFocus();
+    }//GEN-LAST:event_txfNomActionPerformed
+
+    private void txfApeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfApeActionPerformed
+        txfDNI.requestFocus();
+    }//GEN-LAST:event_txfApeActionPerformed
+
+    private void txfDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDNIActionPerformed
+        cbbCic.requestFocus();
+    }//GEN-LAST:event_txfDNIActionPerformed
 
     private void txfExpFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfExpFocusGained
         txfExp.setForeground(Color.BLACK);
@@ -442,47 +461,43 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_txfDNIFocusGained
 
     private void txfExpFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfExpFocusLost
-        UtilesValidacion.validarCampoTexto(txfExp, Model.ER_EXP, "*");
+        UtilesValidacion.validarCampoTexto(txfExp, Model.ER_EXP, "?");
         txfExp.setBackground(Color.WHITE);
     }//GEN-LAST:event_txfExpFocusLost
 
     private void txfNomFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfNomFocusLost
-        UtilesValidacion.validarCampoTexto(txfNom, Model.ER_NOM, "*");
+        UtilesValidacion.validarCampoTexto(txfNom, Model.ER_NOM, "?");
         txfNom.setBackground(Color.WHITE);
     }//GEN-LAST:event_txfNomFocusLost
 
     private void txfApeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfApeFocusLost
-        UtilesValidacion.validarCampoTexto(txfApe, Model.ER_APE, "*");
+        UtilesValidacion.validarCampoTexto(txfApe, Model.ER_APE, "?");
         txfApe.setBackground(Color.WHITE);
     }//GEN-LAST:event_txfApeFocusLost
 
     private void txfDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfDNIFocusLost
-        UtilesValidacion.validarCampoDNI(txfDNI, "99999999Z");
+        UtilesValidacion.validarCampoDNI(txfDNI, "?");
         txfDNI.setBackground(Color.WHITE);
     }//GEN-LAST:event_txfDNIFocusLost
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        control.procesarCierreVista(evt);
-    }//GEN-LAST:event_formWindowClosing
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LblCur;
-    public javax.swing.ButtonGroup bgpCur;
-    public javax.swing.ButtonGroup bgpTur;
+    private javax.swing.ButtonGroup btgCurso;
+    private javax.swing.ButtonGroup btgTurno;
     private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnImportar;
-    public javax.swing.JComboBox cbbCic;
+    public javax.swing.JComboBox<String> cbbCic;
     public javax.swing.JCheckBox cbxRep;
     private javax.swing.JLabel lblApe;
     private javax.swing.JLabel lblCic;
+    private javax.swing.JLabel lblCur;
     private javax.swing.JLabel lblDNI;
     private javax.swing.JLabel lblExp;
     private javax.swing.JLabel lblNom;
     private javax.swing.JLabel lblRep;
     private javax.swing.JLabel lblTur;
+    private javax.swing.JPanel pnlControles;
     private javax.swing.JPanel pnlIdentificacion;
     private javax.swing.JPanel pnlMatricula;
-    private javax.swing.JPanel pnlPersistencia;
     public javax.swing.JRadioButton rbtCur1;
     public javax.swing.JRadioButton rbtCur2;
     public javax.swing.JRadioButton rbtCur3;

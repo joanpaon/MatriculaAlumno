@@ -1,1 +1,10 @@
-{"exp":"12345","nom":"José A.","ape":"Pacheco Ondoño","dni":"29027357T","cic":"DAW","cur":"2","tur":"N","rep":true}
+{
+    "exp": "87654321",
+    "nom": "Federico",
+    "ape": "Martínez Rodríguez",
+    "dni": "12345678Z",
+    "cic": "ASIR",
+    "cur": "1",
+    "tur": "M",
+    "rep": false
+}
